@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/',
+                    data: formData,
+                    success: function(response) {
+                        var output = '';
+                        for (var i = 0; i < response.response.length; i++) {
+                            output += '<p>' + response.response[i] + '</p>';
+                        }
+                        $('#output').html(output);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form method="POST" action="/">
+        <input type="text" name="message">
+        <input type="submit" value="Enviar">
+    </form>
+    <div id="output"></div>
+</body>
+</html>
